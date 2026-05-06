@@ -1,0 +1,84 @@
+name: Build Alpha Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0-alpha.1)'
+        required: false
+        default: ''
+
+env:
+  RELEASE_TAG: ${{ github.event.inputs.tag || 'v0.1.0-alpha.1' }}
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Publish win-x86
+        run: dotnet publish -c Release -r win-x86 -p:PublishSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -o ./publish/win-x86
+
+      - name: Publish win-x64
+        run: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -o ./publish/win-x64
+
+      - name: Create source ZIP
+        shell: pwsh
+        run: |
+          if ("${{ env.RELEASE_TAG }}" -ne '') {
+            git archive --format zip --output source.zip $env:RELEASE_TAG
+          } else {
+            git archive --format zip --output source.zip HEAD
+          }
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          release_name: Alpha Release ${{ env.RELEASE_TAG }}
+          body_path: ./release-notes/alpha-1.md
+          draft: false
+          prerelease: true
+
+      - name: Upload source ZIP
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./source.zip
+          asset_name: source.zip
+          asset_content_type: application/zip
+
+      - name: Upload win32 EXE
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./publish/win-x86/ReturnAlphaBoost.exe
+          asset_name: ReturnAlphaBoost-win32.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload win64 EXE
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./publish/win-x64/ReturnAlphaBoost.exe
+          asset_name: ReturnAlphaBoost-win64.exe
+          asset_content_type: application/octet-stream
