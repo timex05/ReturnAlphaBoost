@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -11,8 +10,8 @@ public class MainForm : Form
     const string AlphaRepoBaseUrl = "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/";
     static readonly string[] AlphaFileNames = new[]
     {
-        "Boost_AlphaReward_SF.upk",
-        "SFX_Boost_Alpha.bnk"
+        "Boost_Bubble_SF.upk",
+        "SFX_Boost_Bubbles.bnk"
     };
 
     TextBox pathBox;
@@ -126,7 +125,7 @@ public class MainForm : Form
                 var response = http.GetAsync(downloadUrl).GetAwaiter().GetResult();
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Failed to download {fileName} from GitHub: {response.StatusCode}", "Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Failed to download from GitHub: {downloadUrl}\nStatus: {response.StatusCode}", "Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
