@@ -63,7 +63,7 @@ public class MainForm : Form
 
         Load += (s, e) =>
         {
-            MessageBox.Show("Please close Rocket League before running this tool.", "Close Rocket League", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(this, "Please close Rocket League before running this tool.", "Close Rocket League", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             installRoot = TryFindRocketLeagueInstall();
             if (!string.IsNullOrEmpty(installRoot))
@@ -76,7 +76,7 @@ public class MainForm : Form
             {
                 pathBox.Text = "Not found";
                 statusLabel.Text = "Rocket League installation not found.";
-                MessageBox.Show("Rocket League installation not found. You can select it manually.", "Installation not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Rocket League installation not found. You can select it manually.", "Installation not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         };
     }
@@ -107,9 +107,9 @@ public class MainForm : Form
         }
 
         var cookedPath = ResolveCookedPcConsolePath(installRoot);
-        if (string.IsNullOrEmpty(cookedPath))
+            if (string.IsNullOrEmpty(cookedPath))
         {
-            MessageBox.Show("The subfolder 'TAGame\\CookedPCConsole' was not found.", "Subfolder Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(this, "The subfolder 'TAGame\\CookedPCConsole' was not found.", "Subfolder Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
@@ -125,7 +125,7 @@ public class MainForm : Form
                 var response = http.GetAsync(downloadUrl).GetAwaiter().GetResult();
                 if (!response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show($"Failed to download from GitHub: {downloadUrl}\nStatus: {response.StatusCode}", "Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, $"Failed to download from GitHub: {downloadUrl}\nStatus: {response.StatusCode}", "Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -137,12 +137,12 @@ public class MainForm : Form
                 File.Copy(targetDownloadPath, targetFile, true);
             }
 
-            MessageBox.Show($"Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(this, $"Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             statusLabel.Text = "Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.";
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Download or copy failed:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(this, "Download or copy failed:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
