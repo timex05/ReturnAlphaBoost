@@ -1,0 +1,31 @@
+{
+  "profiles": {
+    "bubbles": {
+      "type": "local",
+      "mappings": [
+        {
+          "source": "Boost_AlphaReward_SF.upk",
+          "target": "Boost_Bubble_SF.upk"
+        },
+        {
+          "source": "SFX_Boost_Alpha.bnk",
+          "target": "SFX_Boost_Bubbles.bnk"
+        }
+      ]
+    },
+    "bubbles_online": {
+      "type": "online",
+      "sourceRoot": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/",
+      "mappings": [
+        {
+          "source": "Boost_Bubble_SF.upk",
+          "target": "Boost_Bubble_SF.upk"
+        },
+        {
+          "source": "SFX_Boost_Bubbles.bnk",
+          "target": "SFX_Boost_Bubbles.bnk"
+        }
+      ]
+    }
+  }
+}
