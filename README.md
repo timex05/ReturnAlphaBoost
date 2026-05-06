@@ -4,13 +4,14 @@ A small Windows tool that replaces the default Rocket League Bubble Boost with  
 
 ## About
 
-ReturnAlphaBoost automatically detects your Rocket League installation and replaces the standard "Bubbles" boost audio and visual effects with the nostalgic Alpha Boost. The tool modifies game files locally and is **not banable by Easy Anti-Cheat (EAC)**.
+ReturnAlphaBoost automatically detects your Rocket League installation and replaces the standard "Bubbles" boost audio and visual effects with the nostalgic Alpha Boost. The tool modifies game files locally and is **not bannable by Easy Anti-Cheat (EAC)**.
 
 ## Features
 
 - ✅ Automatic Rocket League installation detection
 - ✅ Manual installation path selection support
-- ✅ Downloads Alpha Boost files directly from GitHub
+- ✅ Loads its JSON config from GitHub Raw by default, with local fallback
+- ✅ Supports `local` and `online` source modes in JSON
 - ✅ Replaces Bubbles boost with Alpha Boost
 - ✅ Safe and non-detectable by anti-cheat
 - ✅ Steam and Epic Games (Only Verified on Epic Games)
@@ -22,7 +23,50 @@ ReturnAlphaBoost automatically detects your Rocket League installation and repla
 3. The tool will **automatically detect** your Rocket League installation
    - Or manually **browse** to select your Rocket League install folder (can be found through Epic Games Launcher --> Library --> Rocket League --> Manage --> Open Install Location)
 4. Click **"Replace Bubbles with Alpha Boost"** to apply the changes
-5. The tool downloads the Alpha Boost files from GitHub and replaces the Bubbles files in your game installation
+5. The tool reads `returnalphaboost.config.json`, downloads it from GitHub Raw when available, and copies the configured files over the target game files
+
+## Configuration
+
+The replacement behavior is now driven by `returnalphaboost.config.json`. The app tries GitHub Raw first and falls back to the local file next to the executable.
+
+Example:
+
+```json
+{
+   "profiles": {
+      "bubbles": {
+         "type": "local",
+         "sourceRoot": "TAGame",
+         "mappings": [
+            {
+               "source": "Boost_AlphaReward_SF.upk",
+               "target": "Boost_Bubble_SF.upk"
+            },
+            {
+               "source": "SFX_Boost_Alpha.bnk",
+               "target": "SFX_Boost_Bubbles.bnk"
+            }
+         ]
+      },
+      "bubbles_online": {
+         "type": "online",
+         "sourceRoot": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/",
+         "mappings": [
+            {
+               "source": "Boost_Bubble_SF.upk",
+               "target": "Boost_Bubble_SF.upk"
+            },
+            {
+               "source": "SFX_Boost_Bubbles.bnk",
+               "target": "SFX_Boost_Bubbles.bnk"
+            }
+         ]
+      }
+   }
+}
+```
+
+`type: "local"` means the app copies files from `sourceRoot` under your Rocket League install. `type: "online"` means the app downloads the source files from the `sourceRoot` GitHubusercontent URL and overwrites the `target` files in the game folder.
 
 ## Undo Changes
 
