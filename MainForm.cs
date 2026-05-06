@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.Http;
@@ -24,8 +25,8 @@ public class MainForm : Form
     public MainForm()
     {
         Text = "ReturnAlphaBoost";
-        Width = 560;
-        Height = 220;
+        Width = 600;
+        Height = 300;
         StartPosition = FormStartPosition.CenterScreen;
 
         try
@@ -39,37 +40,97 @@ public class MainForm : Form
         }
         catch { }
 
-        var pathLabel = new Label() { Text = "Install path:", Left = 10, Top = 18, Width = 80 };
-        pathBox = new TextBox() { Left = 95, Top = 14, Width = 350, ReadOnly = true };
-        browseBtn = new Button() { Text = "Browse...", Left = 450, Top = 12, Width = 85 };
+        // Main content panel (fills except footer)
+        var mainPanel = new Panel()
+        {
+            Dock = DockStyle.Fill,
+            Padding = new Padding(10)
+        };
+
+        var pathLabel = new Label() { Text = "Install path:", AutoSize = true, Location = new Point(10, 10) };
+        pathBox = new TextBox() { Width = 350, Location = new Point(110, 8), ReadOnly = true };
+        browseBtn = new Button() { Text = "Browse...", Width = 85, Location = new Point(470, 8) };
         browseBtn.Click += (s, e) => SelectInstallPath();
 
         statusLabel = new Label()
         {
-            Left = 10,
-            Top = 50,
-            Width = 525,
-            Height = 40,
+            AutoSize = true,
+            Location = new Point(10, 45),
+            MaximumSize = new Size(560, 40),
             Text = ""
         };
 
         replaceBtn = new Button()
         {
-            Left = 10,
-            Top = 105,
-            Width = 525,
-            Height = 35,
             Text = "Replace Bubbles with Alpha Boost",
-            Enabled = false
+            Dock = DockStyle.Bottom,
+            Height = 40
         };
         replaceBtn.Click += (s, e) => CopyAlphaFilesIntoGameFolder();
 
-        Controls.AddRange(new Control[] { pathLabel, pathBox, browseBtn, statusLabel, replaceBtn });
+        mainPanel.Controls.AddRange(new Control[] { pathLabel, pathBox, browseBtn, statusLabel, replaceBtn });
+
+        // Footer panel
+        var footerPanel = new Panel()
+        {
+            Dock = DockStyle.Bottom,
+            Height = 35,
+            BorderStyle = BorderStyle.FixedSingle,
+            BackColor = SystemColors.ControlLight
+        };
+
+        var docsLink = new LinkLabel()
+        {
+            Text = "Docs",
+            AutoSize = true,
+            Location = new Point(540, 8),
+            LinkColor = Color.FromArgb(0, 102, 204),
+            VisitedLinkColor = Color.FromArgb(128, 0, 255),
+            Tag = "https://github.com/timex05/ReturnAlphaBoost/blob/main/README.md"
+        };
+        docsLink.LinkClicked += (s, e) =>
+        {
+            var psi = new ProcessStartInfo() { FileName = docsLink.Tag.ToString(), UseShellExecute = true };
+            Process.Start(psi);
+        };
+
+        var separator = new Label()
+        {
+            Text = "|",
+            AutoSize = true,
+            Location = new Point(515, 8),
+            ForeColor = SystemColors.ControlDark
+        };
+
+        var githubLink = new LinkLabel()
+        {
+            Text = "GitHub",
+            AutoSize = true,
+            Location = new Point(455, 8),
+            LinkColor = Color.FromArgb(0, 102, 204),
+            VisitedLinkColor = Color.FromArgb(128, 0, 255),
+            Tag = "https://github.com/timex05/ReturnAlphaBoost"
+        };
+        githubLink.LinkClicked += (s, e) =>
+        {
+            var psi = new ProcessStartInfo() { FileName = githubLink.Tag.ToString(), UseShellExecute = true };
+            Process.Start(psi);
+        };
+
+        footerPanel.Controls.AddRange(new Control[] { docsLink, separator, githubLink });
+
+        Controls.AddRange(new Control[] { mainPanel, footerPanel });
+
+        Resize += (s, e) =>
+        {
+            int panelWidth = footerPanel.Width;
+            githubLink.Location = new Point(panelWidth - 140, 8);
+            separator.Location = new Point(panelWidth - 95, 8);
+            docsLink.Location = new Point(panelWidth - 60, 8);
+        };
 
         Load += (s, e) =>
         {
-            MessageBox.Show(this, "Please close Rocket League before running this tool.", "Close Rocket League", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
             installRoot = TryFindRocketLeagueInstall();
             if (!string.IsNullOrEmpty(installRoot))
             {
@@ -142,8 +203,8 @@ public class MainForm : Form
                 File.Copy(targetDownloadPath, targetFile, true);
             }
 
-            MessageBox.Show(this, $"Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            statusLabel.Text = "Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.";
+            MessageBox.Show(this, $"Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole.\n\nRocket League restart is required for the changes to take effect.", "Success - Restart Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            statusLabel.Text = "Downloaded alpha files from GitHub and copied them into TAGame\\CookedPCConsole. Rocket League restart required.";
         }
         catch (Exception ex)
         {
