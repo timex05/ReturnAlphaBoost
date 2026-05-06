@@ -322,19 +322,17 @@ public class MainForm : Form
 
     bool TryCopyFromRemoteSource(AlphaProfile profile, IReadOnlyCollection<FileMapping> mappings, string cookedPath)
     {
-        var sourceRoot = profile.SourceRoot;
-        if (string.IsNullOrWhiteSpace(sourceRoot))
-        {
-            MessageBox.Show(this, "The online profile requires a sourceRoot GitHubusercontent URL.", "Config Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-
         try
         {
             foreach (var mapping in mappings)
             {
-                var sourceUrl = CombineUrl(sourceRoot, mapping.Source);
-                var bytes = Http.GetByteArrayAsync(sourceUrl).GetAwaiter().GetResult();
+                if (string.IsNullOrWhiteSpace(mapping.Source))
+                {
+                    MessageBox.Show(this, "Each online mapping requires a full URL in 'source'.", "Config Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                var bytes = Http.GetByteArrayAsync(mapping.Source).GetAwaiter().GetResult();
 
                 var targetFile = Path.Combine(cookedPath, mapping.Target);
                 var targetDirectory = Path.GetDirectoryName(targetFile);

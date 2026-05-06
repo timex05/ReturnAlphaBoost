@@ -1,8 +1,6 @@
 # ReturnAlphaBoost
 
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support%20the%20project-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](buymeacoffee.com/timex385k)
-
-A small Windows tool that replaces the default Rocket League Bubble Boost with  classic Alpha Boost.
+A small Windows tool that replaces the Bubble Boost with Alpha Boost.
 
 ## About
 

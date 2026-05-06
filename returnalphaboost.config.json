@@ -2,14 +2,13 @@
   "profiles": {
     "bubbles_online": {
       "type": "online",
-      "sourceRoot": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/",
       "mappings": [
         {
-          "source": "Boost_Bubble_SF.upk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/Boost_Bubble_SF.upk",
           "target": "Boost_Bubble_SF.upk"
         },
         {
-          "source": "SFX_Boost_Bubbles.bnk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/SFX_Boost_Bubbles.bnk",
           "target": "SFX_Boost_Bubbles.bnk"
         }
       ]
