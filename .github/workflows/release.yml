@@ -1,15 +1,18 @@
-name: Build Alpha Release
+name: Build and Release
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag (e.g. v0.1.0-alpha.1)'
+        description: 'Release tag (e.g. v1.0.0)'
         required: false
         default: ''
 
 env:
-  RELEASE_TAG: ${{ github.event.inputs.tag || 'v0.1.0-alpha.1' }}
+  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
 
 jobs:
   build-and-release:
@@ -48,10 +51,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.RELEASE_TAG }}
-          release_name: Alpha Release ${{ env.RELEASE_TAG }}
-          body_path: ./release-notes/alpha-1.md
+          release_name: Release ${{ env.RELEASE_TAG }}
+          body: Automated release by GitHub Actions
           draft: false
-          prerelease: true
+          prerelease: false
 
       - name: Upload source ZIP
         uses: actions/upload-release-asset@v1
