@@ -28,11 +28,16 @@ public class MainForm : Form
         Height = 220;
         StartPosition = FormStartPosition.CenterScreen;
 
-        var appIconPath = Path.Combine(AppContext.BaseDirectory, "icon.ico");
-        if (File.Exists(appIconPath))
+        try
         {
-            try { Icon = new Icon(appIconPath); } catch { }
+            var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName;
+            if (!string.IsNullOrEmpty(exePath))
+            {
+                var extracted = System.Drawing.Icon.ExtractAssociatedIcon(exePath);
+                if (extracted != null) Icon = extracted;
+            }
         }
+        catch { }
 
         var pathLabel = new Label() { Text = "Install path:", Left = 10, Top = 18, Width = 80 };
         pathBox = new TextBox() { Left = 95, Top = 14, Width = 350, ReadOnly = true };

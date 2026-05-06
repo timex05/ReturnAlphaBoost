@@ -10,12 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="icon.png" />
+    <None Include="icon.ico" />
   </ItemGroup>
 
 </Project>
