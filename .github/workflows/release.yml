@@ -8,11 +8,10 @@ on:
     inputs:
       tag:
         description: 'Release tag (e.g. v1.0.0)'
-        required: false
-        default: ''
+        required: true
 
-env:
-  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+permissions:
+  contents: write
 
 jobs:
   build-and-release:
@@ -20,6 +19,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Resolve Release Tag
+        id: release_tag
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            $tag = "${{ github.event.inputs.tag }}"
+            if ([string]::IsNullOrWhiteSpace($tag)) {
+              throw "Release tag is required for manual runs."
+            }
+          } else {
+            $tag = "${{ github.ref_name }}"
+          }
+
+          "release_tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -38,8 +52,8 @@ jobs:
       - name: Create source ZIP
         shell: pwsh
         run: |
-          if ("${{ env.RELEASE_TAG }}" -ne '') {
-            git archive --format zip --output source.zip $env:RELEASE_TAG
+          if ("${{ steps.release_tag.outputs.release_tag }}" -ne '') {
+            git archive --format zip --output source.zip ${{ steps.release_tag.outputs.release_tag }}
           } else {
             git archive --format zip --output source.zip HEAD
           }
@@ -50,8 +64,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          release_name: Release ${{ env.RELEASE_TAG }}
+          tag_name: ${{ steps.release_tag.outputs.release_tag }}
+          release_name: Release ${{ steps.release_tag.outputs.release_tag }}
           body: Automated release by GitHub Actions
           draft: false
           prerelease: false
