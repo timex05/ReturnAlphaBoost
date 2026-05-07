@@ -44,7 +44,7 @@
       "text_short": "Unc -> Marred Shard",
       "mappings": [
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/files/skin/unc_marred-shard/skin_unc_SF.upk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/skin/unc_marred-shard/skin_unc_SF.upk",
           "target": "skin_unc_SF.upk"
         }
       ]
