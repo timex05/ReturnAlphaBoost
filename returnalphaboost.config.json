@@ -36,8 +36,30 @@
           "target": "explosion_Beachballs_SF.upk"
         }
       ]
-    }
+    },
 
-    
+    "unc_marred-shard": {
+      "type": "Skin",
+      "text": "Turn Unc into Marred Shard",
+      "text_short": "Unc -> Marred Shard",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/files/skin/unc_marred-shard/skin_unc_SF.upk",
+          "target": "skin_unc_SF.upk"
+        }
+      ]
+    },
+
+    "normal_standard-purple_standard": {
+      "type": "Boost",
+      "text": "Turn Normal Standard into Purple Standard",
+      "text_short": "Normal Standard -> Purple Standard",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/standard_normal-standard_purple/Boost_Standard_SF.upk",
+          "target": "Boost_Standard_SF.upk"
+        }
+      ]
+    }
   }
 }
