@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public sealed class ReturnAlphaBoostConfig
 {
@@ -14,33 +15,27 @@ public sealed class ReturnAlphaBoostConfig
 
     public Dictionary<string, AlphaProfile> Profiles { get; set; } = new();
 
-    public static ReturnAlphaBoostConfig Load(string baseDirectory)
+    public static ReturnAlphaBoostConfig Load()
     {
-        // Development/local override: if a file named returnalphaboost.local.json exists, use it.
-        var localDevPath = Path.Combine(baseDirectory, "returnalphaboost.local.json");
-        if (File.Exists(localDevPath))
-        {
-            var json = File.ReadAllText(localDevPath);
-            var config = JsonSerializer.Deserialize<ReturnAlphaBoostConfig>(json, JsonOptions);
-            return Normalize(config) ?? throw new InvalidOperationException("The local configuration is empty or invalid.");
-        }
+        var baseDirectory = AppContext.BaseDirectory;
 
-        // Environment variable to force using the bundled config next to the exe during development
-        var useLocal = Environment.GetEnvironmentVariable("RAB_USE_LOCAL_CONFIG");
-        if (!string.IsNullOrEmpty(useLocal) && (useLocal == "1" || useLocal.Equals("true", StringComparison.OrdinalIgnoreCase)))
+        // In development: try loading local config first
+        var localConfigPath = Path.Combine(baseDirectory, "returnalphaboost.local.json");
+        if (File.Exists(localConfigPath))
         {
-            var bundledPath = Path.Combine(baseDirectory, "returnalphaboost.config.json");
-            if (!File.Exists(bundledPath))
+            try
             {
-                throw new InvalidOperationException("RAB_USE_LOCAL_CONFIG is set but no bundled config file was found.");
+                var json = File.ReadAllText(localConfigPath);
+                var config = JsonSerializer.Deserialize<ReturnAlphaBoostConfig>(json, JsonOptions);
+                return Normalize(config) ?? throw new InvalidOperationException("The local configuration is empty or invalid.");
             }
-
-            var json = File.ReadAllText(bundledPath);
-            var config = JsonSerializer.Deserialize<ReturnAlphaBoostConfig>(json, JsonOptions);
-            return Normalize(config) ?? throw new InvalidOperationException("The bundled local configuration is empty or invalid.");
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Unable to load local configuration from {localConfigPath}", ex);
+            }
         }
 
-        // Default behavior: load from remote GitHub URL. Throw if unreachable or invalid.
+        // Fall back to remote GitHub URL
         try
         {
             var json = Http.GetStringAsync(RemoteConfigUrl).GetAwaiter().GetResult();
@@ -85,9 +80,12 @@ public sealed class ReturnAlphaBoostConfig
 
 public sealed class AlphaProfile
 {
-    public string Type { get; set; } = "local";
+    public string Type { get; set; } = "General";
 
-    public string SourceRoot { get; set; } = "TAGame\\CookedPCConsole";
+    public string Text { get; set; } = string.Empty;
+
+    [JsonPropertyName("text_short")]
+    public string TextShort { get; set; } = string.Empty;
 
     public List<FileMapping> Mappings { get; set; } = new();
 
@@ -95,13 +93,11 @@ public sealed class AlphaProfile
     {
         if (string.IsNullOrWhiteSpace(Type))
         {
-            Type = "local";
+            Type = "General";
         }
 
-        if (string.IsNullOrWhiteSpace(SourceRoot))
-        {
-            SourceRoot = "TAGame\\CookedPCConsole";
-        }
+        Text = Text?.Trim() ?? string.Empty;
+        TextShort = TextShort?.Trim() ?? string.Empty;
 
         Mappings = Mappings.Where(mapping => mapping != null && mapping.IsValid()).ToList();
         return this;
@@ -110,6 +106,31 @@ public sealed class AlphaProfile
     public List<FileMapping> GetValidMappings()
     {
         return Mappings.Where(mapping => mapping.IsValid()).ToList();
+    }
+
+    public string GetDisplayText(string fallback)
+    {
+        if (!string.IsNullOrWhiteSpace(TextShort))
+        {
+            return TextShort;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            return Text;
+        }
+
+        return fallback;
+    }
+
+    public string GetDescriptionText(string fallback)
+    {
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            return Text;
+        }
+
+        return fallback;
     }
 }
 

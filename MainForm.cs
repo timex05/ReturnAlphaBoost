@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -10,9 +11,8 @@ public class MainForm : Form
 {
     TextBox pathBox;
     Button browseBtn;
-    Button replaceBtn;
     Label statusLabel;
-    ComboBox profileBox;
+    FlowLayoutPanel profileButtonsPanel;
 
     string? installRoot;
     ReturnAlphaBoostConfig config = ReturnAlphaBoostConfig.CreateDefault();
@@ -21,8 +21,9 @@ public class MainForm : Form
     public MainForm()
     {
         Text = "ReturnAlphaBoost";
-        Width = 600;
-        Height = 300;
+        Width = 760;
+        Height = 420;
+        MinimumSize = new Size(520, 320);
         StartPosition = FormStartPosition.CenterScreen;
 
         try
@@ -36,58 +37,116 @@ public class MainForm : Form
         }
         catch { }
 
-        // Main content panel (fills except footer)
-        var mainPanel = new Panel()
+        // Main content layout (responsive)
+        var mainPanel = new TableLayoutPanel()
         {
             Dock = DockStyle.Fill,
-            Padding = new Padding(10)
+            Padding = new Padding(10),
+            ColumnCount = 1,
+            RowCount = 3
         };
+        mainPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        mainPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        mainPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        mainPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-        var profileLabel = new Label() { Text = "Profile:", AutoSize = true, Location = new Point(10, 12) };
-        profileBox = new ComboBox()
+        // Installation row
+        var installGrid = new TableLayoutPanel()
         {
-            Width = 350,
-            Location = new Point(110, 8),
-            DropDownStyle = ComboBoxStyle.DropDownList
+            Dock = DockStyle.Top,
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            ColumnCount = 3,
+            RowCount = 1,
+            Margin = new Padding(0, 0, 0, 10)
         };
+        installGrid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        installGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        installGrid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
-        var pathLabel = new Label() { Text = "Install path:", AutoSize = true, Location = new Point(10, 45) };
-        pathBox = new TextBox() { Width = 350, Location = new Point(110, 43), ReadOnly = true };
-        browseBtn = new Button() { Text = "Browse...", Width = 85, Location = new Point(470, 43) };
+        var pathLabel = new Label()
+        {
+            Text = "Install path:",
+            AutoSize = true,
+            Anchor = AnchorStyles.Left,
+            Margin = new Padding(0, 6, 10, 6)
+        };
+        pathBox = new TextBox()
+        {
+            Dock = DockStyle.Fill,
+            ReadOnly = true,
+            Margin = new Padding(0, 3, 8, 3)
+        };
+        browseBtn = new Button()
+        {
+            Text = "Browse...",
+            AutoSize = true,
+            Anchor = AnchorStyles.Right,
+            Margin = new Padding(0, 3, 0, 3)
+        };
         browseBtn.Click += (s, e) => SelectInstallPath();
 
-        statusLabel = new Label()
+        installGrid.Controls.Add(pathLabel, 0, 0);
+        installGrid.Controls.Add(pathBox, 1, 0);
+        installGrid.Controls.Add(browseBtn, 2, 0);
+
+        // Profile buttons panel
+        profileButtonsPanel = new FlowLayoutPanel()
         {
+            Dock = DockStyle.Top,
             AutoSize = true,
-            Location = new Point(10, 80),
-            MaximumSize = new Size(560, 40),
-            Text = ""
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            FlowDirection = FlowDirection.LeftToRight,
+            WrapContents = true,
+            Margin = new Padding(0)
         };
 
-        replaceBtn = new Button()
-        {
-            Text = "Replace Bubbles with Alpha Boost",
-            Dock = DockStyle.Bottom,
-            Height = 40
-        };
-        replaceBtn.Click += (s, e) => CopyAlphaFilesIntoGameFolder();
-
-        mainPanel.Controls.AddRange(new Control[] { profileLabel, profileBox, pathLabel, pathBox, browseBtn, statusLabel, replaceBtn });
+        mainPanel.Controls.Add(installGrid, 0, 0);
+        mainPanel.Controls.Add(profileButtonsPanel, 0, 1);
+        mainPanel.Controls.Add(new Panel() { Dock = DockStyle.Fill }, 0, 2);
 
         // Footer panel
         var footerPanel = new Panel()
         {
             Dock = DockStyle.Bottom,
-            Height = 35,
+            Height = 50,
             BorderStyle = BorderStyle.FixedSingle,
             BackColor = SystemColors.ControlLight
+        };
+
+        var footerContainer = new TableLayoutPanel()
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 2,
+            RowCount = 1,
+            Margin = new Padding(0),
+            Padding = new Padding(8, 4, 8, 4)
+        };
+        footerContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        footerContainer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+
+        statusLabel = new Label()
+        {
+            AutoSize = true,
+            Text = "",
+            Anchor = AnchorStyles.Left | AnchorStyles.Top,
+            Margin = new Padding(0, 4, 0, 0)
+        };
+
+        var footerLinks = new FlowLayoutPanel()
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.RightToLeft,
+            WrapContents = false,
+            Padding = new Padding(0),
+            Margin = new Padding(0)
         };
 
         var docsLink = new LinkLabel()
         {
             Text = "Docs",
             AutoSize = true,
-            Location = new Point(540, 8),
+            Margin = new Padding(0),
             LinkColor = Color.FromArgb(0, 102, 204),
             VisitedLinkColor = Color.FromArgb(128, 0, 255),
             Tag = "https://github.com/timex05/ReturnAlphaBoost/blob/main/README.md"
@@ -102,7 +161,7 @@ public class MainForm : Form
         {
             Text = "|",
             AutoSize = true,
-            Location = new Point(515, 8),
+            Margin = new Padding(8, 0, 8, 0),
             ForeColor = SystemColors.ControlDark
         };
 
@@ -110,7 +169,7 @@ public class MainForm : Form
         {
             Text = "GitHub",
             AutoSize = true,
-            Location = new Point(455, 8),
+            Margin = new Padding(0),
             LinkColor = Color.FromArgb(0, 102, 204),
             VisitedLinkColor = Color.FromArgb(128, 0, 255),
             Tag = "https://github.com/timex05/ReturnAlphaBoost"
@@ -121,30 +180,29 @@ public class MainForm : Form
             Process.Start(psi);
         };
 
-        footerPanel.Controls.AddRange(new Control[] { docsLink, separator, githubLink });
+        footerLinks.Controls.Add(docsLink);
+        footerLinks.Controls.Add(separator);
+        footerLinks.Controls.Add(githubLink);
+
+        footerContainer.Controls.Add(statusLabel, 0, 0);
+        footerContainer.Controls.Add(footerLinks, 1, 0);
+        footerPanel.Controls.Add(footerContainer);
 
         Controls.AddRange(new Control[] { mainPanel, footerPanel });
-
-        Resize += (s, e) =>
-        {
-            int panelWidth = footerPanel.Width;
-            githubLink.Location = new Point(panelWidth - 140, 8);
-            separator.Location = new Point(panelWidth - 95, 8);
-            docsLink.Location = new Point(panelWidth - 60, 8);
-        };
 
         Load += (s, e) =>
         {
             try
             {
-                config = ReturnAlphaBoostConfig.Load(AppContext.BaseDirectory);
+                statusLabel.Text = "Loading configuration from GitHub...";
+                config = ReturnAlphaBoostConfig.Load();
                 LoadProfileList();
+                statusLabel.Text = "Configuration loaded.";
                 installRoot = TryFindRocketLeagueInstall();
                 if (!string.IsNullOrEmpty(installRoot))
                 {
                     pathBox.Text = installRoot;
                     statusLabel.Text = "Rocket League installation found.";
-                    replaceBtn.Enabled = true;
                 }
                 else
                 {
@@ -159,45 +217,108 @@ public class MainForm : Form
                 Close();
             }
         };
-
-        profileBox.SelectedIndexChanged += (s, e) => UpdateProfileStatus();
     }
 
     void LoadProfileList()
     {
-        profileBox.Items.Clear();
+        profileButtonsPanel.Controls.Clear();
 
-        foreach (var profileName in config.Profiles.Keys.OrderBy(profileName => profileName))
+        var groupedProfiles = config.Profiles
+            .OrderBy(profile => profile.Key)
+            .GroupBy(profile => string.IsNullOrWhiteSpace(profile.Value.Type) ? "General" : profile.Value.Type)
+            .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var group in groupedProfiles)
         {
-            profileBox.Items.Add(profileName);
+            var groupContainer = new TableLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                ColumnCount = 1,
+                RowCount = 2,
+                Margin = new Padding(0, 0, 12, 10),
+                Padding = new Padding(0)
+            };
+            groupContainer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            groupContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            groupContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            var groupLabel = new Label()
+            {
+                AutoSize = true,
+                Font = new Font(Font, FontStyle.Bold),
+                Margin = new Padding(0, 0, 0, 6),
+                Text = group.Key
+            };
+
+            var groupPanel = new FlowLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
+                Margin = new Padding(0),
+                Padding = new Padding(0)
+            };
+
+            foreach (var profileEntry in group)
+            {
+                var profileName = profileEntry.Key;
+                var profile = profileEntry.Value;
+
+                var profileButton = new Button()
+                {
+                    AutoSize = true,
+                    Margin = new Padding(0, 0, 8, 8),
+                    Padding = new Padding(12, 6, 12, 6),
+                    Text = profile.GetDisplayText(profileName),
+                    Tag = profileName
+                };
+
+                profileButton.Click += (s, e) =>
+                {
+                    if (s is not Button button || button.Tag is not string name)
+                    {
+                        return;
+                    }
+
+                    var selectedProfile = config.GetProfile(name);
+                    var selectedDescription = selectedProfile?.GetDescriptionText(name) ?? name;
+
+                    var confirm = MessageBox.Show(
+                        this,
+                        $"{selectedDescription}\n\nThis will overwrite files in TAGame\\CookedPCConsole.\n\nDo you really want to continue?",
+                        "Confirm Overwrite",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button2);
+
+                    if (confirm != DialogResult.Yes)
+                    {
+                        statusLabel.Text = "Operation canceled.";
+                        return;
+                    }
+
+                    statusLabel.Text = selectedDescription;
+                    CopyFilesIntoGameFolder(name);
+                };
+
+                groupPanel.Controls.Add(profileButton);
+            }
+
+                groupContainer.Controls.Add(groupLabel, 0, 0);
+                groupContainer.Controls.Add(groupPanel, 0, 1);
+                profileButtonsPanel.Controls.Add(groupContainer);
         }
 
-        if (profileBox.Items.Count > 0)
+        if (profileButtonsPanel.Controls.Count > 0)
         {
-            profileBox.SelectedIndex = 0;
-            replaceBtn.Enabled = true;
+            statusLabel.Text = "Choose a profile button to apply files.";
         }
         else
         {
             statusLabel.Text = "No profiles were found in the config file.";
-            replaceBtn.Enabled = false;
         }
-    }
-
-    void UpdateProfileStatus()
-    {
-        var selectedProfileName = GetSelectedProfileName();
-        if (string.IsNullOrEmpty(selectedProfileName))
-        {
-            return;
-        }
-
-        statusLabel.Text = $"Selected profile: {selectedProfileName}";
-    }
-
-    string? GetSelectedProfileName()
-    {
-        return profileBox.SelectedItem as string;
     }
 
     void SelectInstallPath()
@@ -214,10 +335,9 @@ public class MainForm : Form
         installRoot = dlg.SelectedPath;
         pathBox.Text = installRoot;
         statusLabel.Text = "Using manually selected installation path.";
-        replaceBtn.Enabled = true;
     }
 
-    void CopyAlphaFilesIntoGameFolder()
+    void CopyFilesIntoGameFolder(string selectedProfileName)
     {
         if (string.IsNullOrEmpty(installRoot))
         {
@@ -229,13 +349,6 @@ public class MainForm : Form
         if (string.IsNullOrEmpty(cookedPath))
         {
             MessageBox.Show(this, "The subfolder 'TAGame\\CookedPCConsole' was not found.", "Subfolder Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-
-        var selectedProfileName = GetSelectedProfileName();
-        if (string.IsNullOrEmpty(selectedProfileName))
-        {
-            MessageBox.Show(this, "Please select a profile first.", "Profile Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
 
@@ -253,74 +366,16 @@ public class MainForm : Form
             return;
         }
 
-        if (string.Equals(profile.Type, "local", StringComparison.OrdinalIgnoreCase))
+        if (!TryCopyFromRemoteSource(mappings, cookedPath))
         {
-            if (!TryCopyFromLocalSource(installRoot, profile, mappings, cookedPath))
-            {
-                return;
-            }
-
-            MessageBox.Show(this, $"Copied the configured local files into TAGame\\CookedPCConsole.\n\nRocket League restart is required for the changes to take effect.", "Success - Restart Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            statusLabel.Text = "Copied the configured local files into TAGame\\CookedPCConsole. Rocket League restart required.";
             return;
         }
 
-        if (string.Equals(profile.Type, "online", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!TryCopyFromRemoteSource(profile, mappings, cookedPath))
-            {
-                return;
-            }
-
-            MessageBox.Show(this, $"Downloaded the configured online files from GitHubusercontent and copied them into TAGame\\CookedPCConsole.\n\nRocket League restart is required for the changes to take effect.", "Success - Restart Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            statusLabel.Text = "Downloaded the configured online files and copied them into TAGame\\CookedPCConsole. Rocket League restart required.";
-            return;
-        }
-
-        MessageBox.Show(this, $"The profile '{selectedProfileName}' uses unsupported type '{profile.Type}'. Use 'local' or 'online'.", "Unsupported Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return;
+        MessageBox.Show(this, "Downloaded the configured files and copied them into TAGame\\CookedPCConsole.\n\nRocket League restart is required for the changes to take effect.", "Success - Restart Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        statusLabel.Text = "Downloaded the configured files and copied them into TAGame\\CookedPCConsole. Rocket League restart required.";
     }
 
-    bool TryCopyFromLocalSource(string installRootValue, AlphaProfile profile, IReadOnlyCollection<FileMapping> mappings, string cookedPath)
-    {
-        var sourceRoot = ResolveLocalSourceRoot(installRootValue, profile.SourceRoot);
-        if (!Directory.Exists(sourceRoot))
-        {
-            MessageBox.Show(this, $"The source folder '{sourceRoot}' was not found.", "Source Folder Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-
-        try
-        {
-            foreach (var mapping in mappings)
-            {
-                var sourceFile = Path.Combine(sourceRoot, mapping.Source);
-                if (!File.Exists(sourceFile))
-                {
-                    MessageBox.Show(this, $"The source file '{sourceFile}' was not found.", "Source File Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
-                var targetFile = Path.Combine(cookedPath, mapping.Target);
-                var targetDirectory = Path.GetDirectoryName(targetFile);
-                if (!string.IsNullOrEmpty(targetDirectory))
-                {
-                    Directory.CreateDirectory(targetDirectory);
-                }
-
-                File.Copy(sourceFile, targetFile, true);
-            }
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(this, "Download or copy failed:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-    }
-
-    bool TryCopyFromRemoteSource(AlphaProfile profile, IReadOnlyCollection<FileMapping> mappings, string cookedPath)
+    bool TryCopyFromRemoteSource(IReadOnlyCollection<FileMapping> mappings, string cookedPath)
     {
         try
         {
@@ -328,7 +383,7 @@ public class MainForm : Form
             {
                 if (string.IsNullOrWhiteSpace(mapping.Source))
                 {
-                    MessageBox.Show(this, "Each online mapping requires a full URL in 'source'.", "Config Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "Each mapping requires a full URL in 'source'.", "Config Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
@@ -351,28 +406,6 @@ public class MainForm : Form
             MessageBox.Show(this, "Download or copy failed:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
-    }
-
-    string ResolveLocalSourceRoot(string installRootValue, string? sourceRoot)
-    {
-        if (string.IsNullOrWhiteSpace(sourceRoot))
-        {
-            return installRootValue;
-        }
-
-        if (Path.IsPathRooted(sourceRoot))
-        {
-            return sourceRoot;
-        }
-
-        return Path.GetFullPath(Path.Combine(installRootValue, sourceRoot));
-    }
-
-    string CombineUrl(string baseUrl, string relativePath)
-    {
-        var normalizedBaseUrl = baseUrl.EndsWith("/", StringComparison.Ordinal) ? baseUrl : baseUrl + "/";
-        var normalizedRelativePath = relativePath.Replace('\\', '/');
-        return new Uri(new Uri(normalizedBaseUrl, UriKind.Absolute), normalizedRelativePath).ToString();
     }
 
     string? ResolveCookedPcConsolePath(string basePath)

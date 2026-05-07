@@ -1,17 +1,43 @@
 {
   "profiles": {
-    "bubbles_online": {
-      "type": "online",
+    "bubbles_alpha": {
+      "type": "Boost",
+      "text": "Turn Bubbles into Alpha Boosts",
+      "text_short": "Bubbles -> Alpha",
       "mappings": [
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/Boost_Bubble_SF.upk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/bubbles_alpha/Boost_Bubble_SF.upk",
           "target": "Boost_Bubble_SF.upk"
         },
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/SFX_Boost_Bubbles.bnk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/bubbles_alpha/SFX_Boost_Bubbles.bnk",
           "target": "SFX_Boost_Bubbles.bnk"
         }
       ]
+    },
+    "octane_fennec": {
+      "type": "Body",
+      "text": "Turn Octane into Fennec",
+      "text_short": "Octane -> Fennec",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/body/octane_fennec/Body_Octane_SF.upk",
+          "target": "Body_Octane_SF.upk"
+        }
+      ]
+    },
+    "beach_party_duelling_dragons": {
+      "type": "Goal Explosion",
+      "text": "Turn Beach Party into Duelling Dragons",
+      "text_short": "Beach Party -> Duelling Dragons",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/goal_explosion/beach-party_duelling-dragons/explosion_Beachballs_SF.upk",
+          "target": "explosion_Beachballs_SF.upk"
+        }
+      ]
     }
+
+    
   }
 }

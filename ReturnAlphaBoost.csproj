@@ -12,6 +12,10 @@
   <ItemGroup>
     <None Include="icon.png" />
     <None Include="icon.ico" />
+    <None Include="returnalphaboost.local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

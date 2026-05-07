@@ -1,32 +1,46 @@
 {
   "profiles": {
-    "testing": {
-      "type": "local",
+    "bubbles_alpha": {
+      "type": "Boost",
+      "text": "Turn Bubbles into Alpha Boosts",
+      "text_short": "Bubbles -> Alpha",
       "mappings": [
         {
-          "source": "Boost_AlphaReward_SF.upk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
           "target": "Boost_Bubble_SF.upk"
         },
         {
-          "source": "SFX_Boost_Alpha.bnk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
           "target": "SFX_Boost_Bubbles.bnk"
-        },
-        {
-          "source": "Boost_AlphaReward_T_SF.upk",
-          "target": "Boost_Bubble_T_SF.upk"
         }
       ]
     },
-    "bubbles_online": {
-      "type": "online",
-      "sourceRoot": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/alpha_files/",
+    "bubbles_alpha1": {
+      "type": "Skin",
+      "text": "Turn Bubbles into Alpha Boosts",
+      "text_short": "Bubbles -> Alpha",
       "mappings": [
         {
-          "source": "Boost_Bubble_SF.upk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
           "target": "Boost_Bubble_SF.upk"
         },
         {
-          "source": "SFX_Boost_Bubbles.bnk",
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
+          "target": "SFX_Boost_Bubbles.bnk"
+        }
+      ]
+    },
+    "bubbles_alpha2": {
+      "type": "Skin",
+      "text": "Turn Bubbles into Alpha Boosts",
+      "text_short": "Bubbles -> Alpha",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
+          "target": "Boost_Bubble_SF.upk"
+        },
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
           "target": "SFX_Boost_Bubbles.bnk"
         }
       ]
