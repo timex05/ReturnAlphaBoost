@@ -60,6 +60,18 @@
           "target": "Boost_Standard_SF.upk"
         }
       ]
+    },
+
+    "pooch-affluenter": {
+      "type": "Skin",
+      "text": "Turn Pooch into Affluenter",
+      "text_short": "Pooch -> Affluenter",
+      "mappings": [
+        {
+          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/skin/pooch-affluenter/skin_poochy_SF.upk",
+          "target": "skin_poochy_SF.upk"
+        }
+      ]
     }
   }
 }
