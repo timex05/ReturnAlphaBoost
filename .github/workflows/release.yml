@@ -32,10 +32,10 @@ jobs:
         run: dotnet restore
 
       - name: Publish win-x86
-        run: dotnet publish -c Release -r win-x86 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -p:DebugType=None -p:DebugSymbols=false -o ./publish/win-x86
+        run: dotnet publish -c Release -r win-x86 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -p:DebugType=None -p:DebugSymbols=false -p:AssemblyName=ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }} -o ./publish/win-x86
 
       - name: Publish win-x64
-        run: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -p:DebugType=None -p:DebugSymbols=false -o ./publish/win-x64
+        run: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false -p:DebugType=None -p:DebugSymbols=false -p:AssemblyName=ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }} -o ./publish/win-x64
 
       - name: Create source ZIP
         shell: pwsh
@@ -64,8 +64,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./publish/win-x86/ReturnAlphaBoost.exe
-          asset_name: ReturnAlphaBoost-win32.exe
+          asset_path: ./publish/win-x86/ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }}.exe
+          asset_name: ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }}-win32.exe
           asset_content_type: application/octet-stream
 
       - name: Upload win64 EXE
@@ -74,6 +74,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./publish/win-x64/ReturnAlphaBoost.exe
-          asset_name: ReturnAlphaBoost-win64.exe
+          asset_path: ./publish/win-x64/ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }}.exe
+          asset_name: ReturnAlphaBoost-${{ steps.release_tag.outputs.release_tag }}-win64.exe
           asset_content_type: application/octet-stream
