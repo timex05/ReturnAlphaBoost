@@ -11,6 +11,7 @@ public class MainForm : Form
 {
     TextBox pathBox;
     Button browseBtn;
+    TextBox searchBox;
     Label statusLabel;
     FlowLayoutPanel profileButtonsPanel;
 
@@ -43,12 +44,11 @@ public class MainForm : Form
             Dock = DockStyle.Fill,
             Padding = new Padding(10),
             ColumnCount = 1,
-            RowCount = 3
+            RowCount = 2
         };
         mainPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         mainPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         mainPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        mainPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
         // Installation row
         var installGrid = new TableLayoutPanel()
@@ -90,20 +90,64 @@ public class MainForm : Form
         installGrid.Controls.Add(pathBox, 1, 0);
         installGrid.Controls.Add(browseBtn, 2, 0);
 
-        // Profile buttons panel
-        profileButtonsPanel = new FlowLayoutPanel()
+        var contentPanel = new TableLayoutPanel()
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 1,
+            RowCount = 2,
+            Margin = new Padding(0)
+        };
+        contentPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        contentPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        contentPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+        var searchGrid = new TableLayoutPanel()
         {
             Dock = DockStyle.Top,
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            ColumnCount = 2,
+            RowCount = 1,
+            Margin = new Padding(0, 0, 0, 8)
+        };
+        searchGrid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        searchGrid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+        var searchLabel = new Label()
+        {
+            Text = "Search:",
+            AutoSize = true,
+            Anchor = AnchorStyles.Left,
+            Margin = new Padding(0, 6, 10, 6)
+        };
+
+        searchBox = new TextBox()
+        {
+            Dock = DockStyle.Fill,
+            Margin = new Padding(0, 3, 0, 3),
+            PlaceholderText = "Search for Swaps"
+        };
+        searchBox.TextChanged += (s, e) => LoadProfileList();
+
+        searchGrid.Controls.Add(searchLabel, 0, 0);
+        searchGrid.Controls.Add(searchBox, 1, 0);
+
+        // Profile buttons panel
+        profileButtonsPanel = new FlowLayoutPanel()
+        {
+            Dock = DockStyle.Fill,
+            AutoScroll = true,
+            AutoSize = false,
             FlowDirection = FlowDirection.LeftToRight,
             WrapContents = true,
             Margin = new Padding(0)
         };
 
+        contentPanel.Controls.Add(searchGrid, 0, 0);
+        contentPanel.Controls.Add(profileButtonsPanel, 0, 1);
+
         mainPanel.Controls.Add(installGrid, 0, 0);
-        mainPanel.Controls.Add(profileButtonsPanel, 0, 1);
-        mainPanel.Controls.Add(new Panel() { Dock = DockStyle.Fill }, 0, 2);
+        mainPanel.Controls.Add(contentPanel, 0, 1);
 
         // Footer panel
         var footerPanel = new Panel()
@@ -222,6 +266,7 @@ public class MainForm : Form
     void LoadProfileList()
     {
         profileButtonsPanel.Controls.Clear();
+        var searchTerm = searchBox?.Text?.Trim() ?? string.Empty;
 
         var groupedProfiles = config.Profiles
             .OrderBy(profile => profile.Key)
@@ -265,13 +310,21 @@ public class MainForm : Form
             {
                 var profileName = profileEntry.Key;
                 var profile = profileEntry.Value;
+                var displayText = profile.GetDisplayText(profileName);
+
+                if (!string.IsNullOrWhiteSpace(searchTerm) &&
+                    displayText.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) < 0 &&
+                    profileName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    continue;
+                }
 
                 var profileButton = new Button()
                 {
                     AutoSize = true,
                     Margin = new Padding(0, 0, 8, 8),
                     Padding = new Padding(12, 6, 12, 6),
-                    Text = profile.GetDisplayText(profileName),
+                    Text = displayText,
                     Tag = profileName
                 };
 
@@ -304,6 +357,11 @@ public class MainForm : Form
                 };
 
                 groupPanel.Controls.Add(profileButton);
+            }
+
+            if (groupPanel.Controls.Count == 0)
+            {
+                continue;
             }
 
                 groupContainer.Controls.Add(groupLabel, 0, 0);

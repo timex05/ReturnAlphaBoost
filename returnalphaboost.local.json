@@ -1,47 +1,589 @@
 {
-  "profiles": {
-    "bubbles_alpha": {
-      "type": "Boost",
-      "text": "Turn Bubbles into Alpha Boosts",
-      "text_short": "Bubbles -> Alpha",
-      "mappings": [
+  "profiles":{
+    "bubbles_alpha":{
+      "type":"Boost",
+      "text":"Turn Bubbles into Alpha Boosts",
+      "text_short":"Bubbles -> Alpha",
+      "mappings":[
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
-          "target": "Boost_Bubble_SF.upk"
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/bubbles_alpha/Boost_Bubble_SF.upk",
+          "target":"Boost_Bubble_SF.upk"
         },
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
-          "target": "SFX_Boost_Bubbles.bnk"
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/bubbles_alpha/SFX_Boost_Bubbles.bnk",
+          "target":"SFX_Boost_Bubbles.bnk"
         }
       ]
     },
-    "bubbles_alpha1": {
-      "type": "Skin",
-      "text": "Turn Bubbles into Alpha Boosts",
-      "text_short": "Bubbles -> Alpha",
-      "mappings": [
+    "octane_fennec":{
+      "type":"Body",
+      "text":"Turn Octane into Fennec",
+      "text_short":"Octane -> Fennec",
+      "mappings":[
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
-          "target": "Boost_Bubble_SF.upk"
-        },
-        {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
-          "target": "SFX_Boost_Bubbles.bnk"
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/body/octane_fennec/Body_Octane_SF.upk",
+          "target":"Body_Octane_SF.upk"
         }
       ]
     },
-    "bubbles_alpha2": {
-      "type": "Skin",
-      "text": "Turn Bubbles into Alpha Boosts",
-      "text_short": "Bubbles -> Alpha",
-      "mappings": [
+    "beach_party_duelling_dragons":{
+      "type":"Goal Explosion",
+      "text":"Turn Beach Party into Duelling Dragons",
+      "text_short":"Beach Party -> Duelling Dragons",
+      "mappings":[
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/Boost_Bubble_SF.upk",
-          "target": "Boost_Bubble_SF.upk"
-        },
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/goal_explosion/beach-party_duelling-dragons/explosion_Beachballs_SF.upk",
+          "target":"explosion_Beachballs_SF.upk"
+        }
+      ]
+    },
+    "unc_marred-shard":{
+      "type":"Skin",
+      "text":"Turn Unc into Marred Shard",
+      "text_short":"Unc -> Marred Shard",
+      "mappings":[
         {
-          "source": "https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost_bubbles-alpha/SFX_Boost_Bubbles.bnk",
-          "target": "SFX_Boost_Bubbles.bnk"
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/skin/unc_marred-shard/skin_unc_SF.upk",
+          "target":"skin_unc_SF.upk"
+        }
+      ]
+    },
+    "normal_standard-purple_standard":{
+      "type":"Boost",
+      "text":"Turn Normal Standard into Purple Standard",
+      "text_short":"Normal Standard -> Purple Standard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/boost/standard_normal-standard_purple/Boost_Standard_SF.upk",
+          "target":"Boost_Standard_SF.upk"
+        }
+      ]
+    },
+    "pooch-affluenter":{
+      "type":"Skin",
+      "text":"Turn Pooch into Affluenter",
+      "text_short":"Pooch -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/skin/pooch-affluenter/skin_poochy_SF.upk",
+          "target":"skin_poochy_SF.upk"
+        }
+      ]
+    },
+    "Chopper-EG-goldstones":{
+      "type":"Wheels",
+      "text":"Chopper EG into goldstones",
+      "text_short":"Chopper EG -> goldstones",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/wheel_sole_SF.upk",
+          "target":"wheel_sole_SF.upk"
+        }
+      ]
+    },
+    "Demigodly-Affluenter":{
+      "type":"Skin",
+      "text":"Demigodly into Affluenter",
+      "text_short":"Demigodly -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_dbj_SF.upk",
+          "target":"skin_dbj_SF.upk"
+        }
+      ]
+    },
+    "default-flamethrower-purple-standard":{
+      "type":"Boost",
+      "text":"default flamethrower into purple standard",
+      "text_short":"default flamethrower -> purple standard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Flamethrower_SF.upk",
+          "target":"Boost_Flamethrower_SF.upk"
+        }
+      ]
+    },
+    "default-flamethrower-pink-standard":{
+      "type":"Boost",
+      "text":"default flamethrower into pink standard",
+      "text_short":"default flamethrower -> pink standard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Flamethrower_SF (1).upk",
+          "target":"Boost_Flamethrower_SF.upk"
+        }
+      ]
+    },
+    "Accelerato-Purple-standard":{
+      "type":"Boost",
+      "text":"Accelerato into Purple standard",
+      "text_short":"Accelerato -> Purple standard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_MusicalNotes_SF.upk",
+          "target":"Boost_MusicalNotes_SF.upk"
+        }
+      ]
+    },
+    "hashmark-affluenter":{
+      "type":"Skin",
+      "text":"hashmark into affluenter",
+      "text_short":"hashmark -> affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_americanfootball_SF.upk",
+          "target":"skin_americanfootball_SF.upk"
+        }
+      ]
+    },
+    "Dieci-Infinium":{
+      "type":"Wheels",
+      "text":"Dieci into Infinium",
+      "text_short":"Dieci -> Infinium",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/WHEEL_Caliber_SF.upk",
+          "target":"WHEEL_Caliber_SF.upk"
+        }
+      ]
+    },
+    "Royal-Crown-Alpha-Cap":{
+      "type":"Hat",
+      "text":"Royal Crown into Alpha Cap",
+      "text_short":"Royal Crown -> Alpha Cap",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Hat_Crown_SF.upk",
+          "target":"Hat_Crown_SF.upk"
+        }
+      ]
+    },
+    "Octane-Monstercat-Octane-Dune-Racer":{
+      "type":"Skin",
+      "text":"Octane: Monstercat into Octane: Dune Racer",
+      "text_short":"Octane: Monstercat -> Octane: Dune Racer",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_octane_wub_SF.upk",
+          "target":"skin_octane_wub_SF.upk"
+        }
+      ]
+    },
+    "Cold-Sweater-Neural-network":{
+      "type":"Skin",
+      "text":"Cold Sweater into Neural network",
+      "text_short":"Cold Sweater -> Neural network",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_holiday_SF.upk",
+          "target":"skin_holiday_SF.upk"
+        }
+      ]
+    },
+    "Classic-TRAIL-Laser-Wave-III":{
+      "type":"Trail",
+      "text":"Classic (TRAIL) into Laser Wave III",
+      "text_short":"Classic (TRAIL) -> Laser Wave III",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/ss_default_SF.upk",
+          "target":"ss_default_SF.upk"
+        }
+      ]
+    },
+    "Classic-TRAIL-Demigodly-trail":{
+      "type":"Trail",
+      "text":"Classic (TRAIL) into Demigodly (trail)",
+      "text_short":"Classic (TRAIL) -> Demigodly (trail)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/ss_default_SF (1).upk",
+          "target":"ss_default_SF.upk"
+        }
+      ]
+    },
+    "Cold-Sweater-Karmine-Corp-OCTANE-ONLY":{
+      "type":"Skin",
+      "text":"Cold Sweater into Karmine Corp ( OCTANE ONLY )",
+      "text_short":"Cold Sweater -> Karmine Corp ( OCTANE ONLY )",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_holiday_SF (1).upk",
+          "target":"skin_holiday_SF.upk"
+        }
+      ]
+    },
+    "Grass-Alpha":{
+      "type":"Boost",
+      "text":"Grass into Alpha",
+      "text_short":"Grass -> Alpha",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Grass_SF.upk",
+          "target":"Boost_Grass_SF.upk"
+        }
+      ]
+    },
+    "Octane-Monstercat-Octane-NRG-og":{
+      "type":"Skin",
+      "text":"Octane: Monstercat into Octane: NRG (og)",
+      "text_short":"Octane: Monstercat -> Octane: NRG (og)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_octane_wub_SF (1).upk",
+          "target":"skin_octane_wub_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Ribbon-HBF-Fennec-Karmine-Corp-Away":{
+      "type":"Skin",
+      "text":"Fennec: Ribbon HBF into Fennec: Karmine Corp (Away)",
+      "text_short":"Fennec: Ribbon HBF -> Fennec: Karmine Corp (Away)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_block_SF.upk",
+          "target":"skin_grain_block_SF.upk"
+        }
+      ]
+    },
+    "Lunaria-Laser-Waves-III":{
+      "type":"Trail",
+      "text":"Lunaria into Laser Waves III",
+      "text_short":"Lunaria -> Laser Waves III",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/ss_astralradiance_SF.upk",
+          "target":"ss_astralradiance_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Ribbon-HBF-Fennec-Karmine-Corp-Away-2023":{
+      "type":"Skin",
+      "text":"Fennec: Ribbon HBF into Fennec: Karmine Corp (Away) (2023)",
+      "text_short":"Fennec: Ribbon HBF -> Fennec: Karmine Corp (Away) (2023)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_block_SF (1).upk",
+          "target":"skin_grain_block_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Bluster-Bar-Fennec-Gentle-Mates-2024":{
+      "type":"Skin",
+      "text":"Fennec: Bluster Bar into Fennec: Gentle Mates 2024",
+      "text_short":"Fennec: Bluster Bar -> Fennec: Gentle Mates 2024",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_lines_SF.upk",
+          "target":"skin_grain_lines_SF.upk"
+        }
+      ]
+    },
+    "Splash-Poof":{
+      "type":"Goal Explosion",
+      "text":"Splash into Poof",
+      "text_short":"Splash -> Poof",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/explosion_splash_SF.upk",
+          "target":"explosion_splash_SF.upk"
+        }
+      ]
+    },
+    "Apex-Zomba":{
+      "type":"Wheels",
+      "text":"Apex into Zomba",
+      "text_short":"Apex -> Zomba",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/wheel_esports01_SF.upk",
+          "target":"wheel_esports01_SF.upk"
+        }
+      ]
+    },
+    "Flamethrower-Sparkles-FIXED":{
+      "type":"Boost",
+      "text":"Flamethrower into Sparkles (FIXED)",
+      "text_short":"Flamethrower -> Sparkles (FIXED)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Flamethrower_SF (2).upk",
+          "target":"Boost_Flamethrower_SF.upk"
+        }
+      ]
+    },
+    "Poochy-Heatwave":{
+      "type":"Skin",
+      "text":"Poochy into Heatwave",
+      "text_short":"Poochy -> Heatwave",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_poochy_SF (1).upk",
+          "target":"skin_poochy_SF.upk"
+        }
+      ]
+    },
+    "Poochy-Neural-Network":{
+      "type":"Skin",
+      "text":"Poochy into Neural Network",
+      "text_short":"Poochy -> Neural Network",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_poochy_SF (2).upk",
+          "target":"skin_poochy_SF.upk"
+        }
+      ]
+    },
+    "Hexed-Neural-Network":{
+      "type":"Skin",
+      "text":"Hexed into Neural Network",
+      "text_short":"Hexed -> Neural Network",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Skin_Hexwave_SF.upk",
+          "target":"Skin_Hexwave_SF.upk"
+        }
+      ]
+    },
+    "Apex-Infinium":{
+      "type":"Wheels",
+      "text":"Apex into Infinium",
+      "text_short":"Apex -> Infinium",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/wheel_esports01_SF (1).upk",
+          "target":"wheel_esports01_SF.upk"
+        }
+      ]
+    },
+    "Falco-Dieci":{
+      "type":"Wheels",
+      "text":"Falco into Dieci",
+      "text_short":"Falco -> Dieci",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Wheel_Vulcan_SF.upk",
+          "target":"Wheel_Vulcan_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Stripes-Marred-Shard":{
+      "type":"Skin",
+      "text":"Fennec: Stripes into Marred Shard",
+      "text_short":"Fennec: Stripes -> Marred Shard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_stripes_SF.upk",
+          "target":"skin_grain_stripes_SF.upk"
+        }
+      ]
+    },
+    "both-Demigodly-trails-Laser-Wave-III":{
+      "type":"Trail",
+      "text":"both Demigodly trails into Laser Wave III",
+      "text_short":"both Demigodly trails -> Laser Wave III",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/ss_decoblue_SF.upk",
+          "target":"ss_decoblue_SF.upk"
+        }
+      ]
+    },
+    "Falco-Reaper":{
+      "type":"Wheels",
+      "text":"Falco into Reaper",
+      "text_short":"Falco -> Reaper",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Wheel_Vulcan_SF (1).upk",
+          "target":"Wheel_Vulcan_SF.upk"
+        }
+      ]
+    },
+    "Big-Splash-SuperNova-III":{
+      "type":"Goal Explosion",
+      "text":"Big Splash into SuperNova III",
+      "text_short":"Big Splash -> SuperNova III",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/explosion_splash_SF (2).upk",
+          "target":"explosion_splash_SF.upk"
+        }
+      ]
+    },
+    "Snowstorm-Affluenter":{
+      "type":"Skin",
+      "text":"Snowstorm into Affluenter",
+      "text_short":"Snowstorm -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_snowflake_SF.upk",
+          "target":"skin_snowflake_SF.upk"
+        }
+      ]
+    },
+    "Mirage-Affluenter-For-Sky-Blue":{
+      "type":"Skin",
+      "text":"Mirage into Affluenter (For Sky Blue)",
+      "text_short":"Mirage -> Affluenter (For Sky Blue)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_zealous_SF.upk",
+          "target":"skin_zealous_SF.upk"
+        }
+      ]
+    },
+    "Demigodly-Mainframe":{
+      "type":"Skin",
+      "text":"Demigodly into Mainframe",
+      "text_short":"Demigodly -> Mainframe",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_dbj_SF (1).upk",
+          "target":"skin_dbj_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Stripes-Fennec-Team-Falcons-Home":{
+      "type":"Skin",
+      "text":"Fennec: Stripes into Fennec: Team Falcons (Home)",
+      "text_short":"Fennec: Stripes -> Fennec: Team Falcons (Home)",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_stripes_SF (1).upk",
+          "target":"skin_grain_stripes_SF.upk"
+        }
+      ]
+    },
+    "Fissure-Laser-Wave-III-For-TW":{
+      "type":"Trail",
+      "text":"Fissure into Laser Wave III ( For TW )",
+      "text_short":"Fissure -> Laser Wave III ( For TW )",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/ss_space_tear_SF.upk",
+          "target":"ss_space_tear_SF.upk"
+        }
+      ]
+    },
+    "Octane-Wings-Neural-Network":{
+      "type":"Skin",
+      "text":"Octane: Wings into Neural Network",
+      "text_short":"Octane: Wings -> Neural Network",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Skin_Octane_Wings_SF.upk",
+          "target":"Skin_Octane_Wings_SF.upk"
+        }
+      ]
+    },
+    "Flamethrower-Yellow-Standard":{
+      "type":"Boost",
+      "text":"Flamethrower into Yellow Standard",
+      "text_short":"Flamethrower -> Yellow Standard",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Flamethrower_SF (3).upk",
+          "target":"Boost_Flamethrower_SF.upk"
+        }
+      ]
+    },
+    "Neural-Shock-Neural-Network":{
+      "type":"Skin",
+      "text":"Neural Shock into Neural Network",
+      "text_short":"Neural Shock -> Neural Network",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_Frank13_SF.upk",
+          "target":"skin_Frank13_SF.upk"
+        }
+      ]
+    },
+    "Fennec-Bluster-Bar-Affluenter":{
+      "type":"Skin",
+      "text":"Fennec: Bluster Bar into Affluenter",
+      "text_short":"Fennec: Bluster Bar -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_grain_lines_SF (1).upk",
+          "target":"skin_grain_lines_SF.upk"
+        }
+      ]
+    },
+    "Steambeam-Affluenter":{
+      "type":"Skin",
+      "text":"Steambeam into Affluenter",
+      "text_short":"Steambeam -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_vorelli_SF.upk",
+          "target":"skin_vorelli_SF.upk"
+        }
+      ]
+    },
+    "beem'd-up-Affluenter":{
+      "type":"Skin",
+      "text":"beem'd up into Affluenter",
+      "text_short":"beem'd up -> Affluenter",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/skin_darkestthickets_SF.upk",
+          "target":"skin_darkestthickets_SF.upk"
+        }
+      ]
+    },
+    "Falco-Goldstone":{
+      "type":"Wheels",
+      "text":"Falco into Goldstone",
+      "text_short":"Falco -> Goldstone",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Wheel_Vulcan_SF (2).upk",
+          "target":"Wheel_Vulcan_SF.upk"
+        }
+      ]
+    },
+    "Invader-Goldstone":{
+      "type":"Wheels",
+      "text":"Invader into Goldstone",
+      "text_short":"Invader -> Goldstone",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/WHEEL_Triad_SF.upk",
+          "target":"WHEEL_Triad_SF.upk"
+        }
+      ]
+    },
+    "Standard-Gold-Rush":{
+      "type":"Boost",
+      "text":"Standard into Gold Rush",
+      "text_short":"Standard -> Gold Rush",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Boost_Standard_SF.upk",
+          "target":"Boost_Standard_SF.upk"
+        }
+      ]
+    },
+    "Apex-Tunica":{
+      "type":"Wheels",
+      "text":"Apex into Tunica",
+      "text_short":"Apex -> Tunica",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/wheel_esports01_SF (2).upk",
+          "target":"wheel_esports01_SF.upk"
+        }
+      ]
+    },
+    "Soccer-Ball-Beta-Nugget":{
+      "type":"Antenna",
+      "text":"Soccer Ball into Beta Nugget",
+      "text_short":"Soccer Ball -> Beta Nugget",
+      "mappings":[
+        {
+          "source":"https://raw.githubusercontent.com/timex05/ReturnAlphaBoost/main/files/unsorted/Antenna_SoccerBall_SF.upk",
+          "target":"Antenna_SoccerBall_SF.upk"
         }
       ]
     }
