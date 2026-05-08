@@ -153,7 +153,7 @@ public class MainForm : Form
         var footerPanel = new Panel()
         {
             Dock = DockStyle.Bottom,
-            Height = 50,
+            Height = 30,
             BorderStyle = BorderStyle.FixedSingle,
             BackColor = SystemColors.ControlLight
         };
